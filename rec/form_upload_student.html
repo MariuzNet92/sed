@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivos Estudiantes</title>
+    
+    <script>
+        // Función para buscar el nombre del estudiante por ID
+        function fetchStudentName() {
+            const studentId = document.querySelector('input[name="id"]').value;
+
+            if (studentId) {
+                fetch(`php/get_student_name.php?id=${studentId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('student_name').textContent = `Nombre: ${data.name}`;
+                        } else {
+                            document.getElementById('student_name').textContent = "Estudiante no encontrado.";
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error al obtener el nombre del estudiante:", error);
+                        document.getElementById('student_name').textContent = "Error al buscar.";
+                    });
+            } else {
+                document.getElementById('student_name').textContent = "";
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <h1>Subir Archivos para Estudiante</h1>
+    <form action="php/upload_student.php" method="post" enctype="multipart/form-data">
+        <label for="id">ID del Estudiante:</label>
+        <input type="number" name="id" required oninput="fetchStudentName()"><br><br>
+
+        <!-- Cuadro que muestra el nombre del estudiante -->
+        <p id="student_name" style="font-weight: bold; color: blue;"></p>
+
+        <label for="foto">Foto (JPG):</label>
+        <input type="file" name="foto" accept=".jpg"><br><br>
+
+        <label for="carnet_id">Carnet de Identidad (PDF):</label>
+        <input type="file" name="carnet_id" accept=".pdf"><br><br>
+
+        <label for="certif_nac">Certificado de Nacimiento (PDF):</label>
+        <input type="file" name="certif_nac" accept=".pdf"><br><br>
+
+        <label for="doc_1">Documento 1 (PDF):</label>
+        <input type="file" name="doc_1" accept=".pdf"><br><br>
+
+        <label for="doc_2">Documento 2 (PDF):</label>
+        <input type="file" name="doc_2" accept=".pdf"><br><br>
+
+        <button type="submit">Subir Archivos</button>
+    </form>
+</body>
+</html>

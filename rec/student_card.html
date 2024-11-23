@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kárdex de Estudiantes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3f3f3;
+        }
+        .card {
+            width: 350px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            text-align: center;
+        }
+        .card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+        .card p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .files-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .files-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .files-list li {
+            margin: 5px 0;
+            color: #007bff;
+            cursor: pointer;
+        }
+        .files-list li a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <!-- Segmento para ingresar el ID -->
+    <label for="id">ID del Estudiante:</label>
+    <input type="number" id="id" placeholder="Ingrese el ID del estudiante" oninput="updateStudentCard()" required><br><br>
+
+    <!-- Contenedor de la tarjeta -->
+    <div id="student-card"></div>
+
+    <script>
+        // Función para obtener los datos del estudiante
+        function fetchStudentData(studentId) {
+            fetch(`php/get_student_data.php?id=${studentId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const card = `
+                            <div class="card">
+                                <img src="${data.photo}" alt="Foto del estudiante">
+                                <h2>${data.name}</h2>
+                                <p><strong>ID:</strong> ${data.id}</p>
+                                <p><strong>Carnet ID:</strong> ${data.carnet_id}</p>
+                                <p><strong>Fecha de Nacimiento:</strong> ${data.birth_date}</p>
+                                <p><strong>Correo:</strong> ${data.email}</p>
+                                <p><strong>Teléfono:</strong> ${data.phone}</p>
+                                <p><strong>Dirección:</strong> ${data.address}</p>
+                                <p><strong>Género:</strong> ${data.gender}</p>
+                                <div class="files-list">
+                                    <h3>Archivos Subidos:</h3>
+                                    <ul>
+                                        ${data.files.map(file => `<li><a href="${file.path}" target="_blank">${file.name}</a></li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        `;
+                        document.getElementById('student-card').innerHTML = card;
+                    } else {
+                        document.getElementById('student-card').innerHTML = `<p>${data.error}</p>`;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById('student-card').innerHTML = "<p>Error al cargar los datos del estudiante.</p>";
+                });
+        }
+
+        // Función para actualizar la tarjeta al cambiar el ID
+        function updateStudentCard() {
+            const studentId = document.getElementById('id').value;
+            if (studentId) {
+                fetchStudentData(studentId);
+            } else {
+                document.getElementById('student-card').innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>

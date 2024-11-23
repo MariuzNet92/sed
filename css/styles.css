@@ -1,0 +1,143 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; /* Mantener siempre visible */
+    top: 0;
+    z-index: 1000;
+    text-shadow: 0 0 5px #ffffff,  /* Sombra suave cercana */
+                 0 0 10px #ffffff, /* Sombra más difusa */
+                 0 0 20px #ffffff; /* Sombra extendida */
+                 
+    font-weight: bold;
+}
+header a{
+    text-decoration: none;
+}
+.header-container {
+    display: flex;
+    align-items: center;
+}
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+.italic {
+    font-style: italic;
+    font-size: 1.5rem;
+}
+
+/* Navegación */
+nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #444;
+    padding: 5px 20px;
+}
+nav a, .dropbtn {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 5px 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+nav a:hover, .dropbtn:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #222;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+.dropdown-content a {
+    color: #fff;
+    padding: 5px 15px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: #333;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Contenido principal */
+main {
+    padding: 20px;
+    text-align: center;
+}
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.card {
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card i {
+    font-size: 40px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1px 20px;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 650px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
