@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kárdex de Estudiantes</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f3f3f3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 400px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            text-align: center;
+        }
+        .card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .card h2 {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+        .card p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .files-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .files-list li {
+            margin: 5px 0;
+        }
+        .files-list li a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .files-list li a:hover {
+            text-decoration: underline;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            margin: 0 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+        }
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilo para impresión */
+        @media print {
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+            }
+            .card {
+                width: 100%;
+                height: auto;
+                margin: 0;
+                box-shadow: none;
+                border: none;
+                page-break-inside: avoid;
+            }
+            .buttons {
+                display: none; /* Ocultar botones al imprimir */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Kárdex de Estudiantes</h1>
+    <label for="id">ID del Estudiante:</label>
+    <input type="number" id="id" placeholder="Ingrese el ID del estudiante" oninput="updateStudentCard()" required>
+    <div id="student-card"></div>
+
+    <div class="buttons">
+        <button onclick="printCard()">Imprimir</button>
+        <button onclick="downloadPDF()">Descargar PDF</button>
+    </div>
+
+    <script>
+        function fetchStudentData(studentId) {
+            fetch(`php/get_student_data.php?id=${studentId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const card = `
+                            <div class="card" id="printable-card">
+                                <img src="${data.photo}" alt="Foto del estudiante">
+                                <h2>${data.name}</h2>
+                                <p><strong>ID:</strong> ${data.id}</p>
+                                <p><strong>Curso:</strong> ${data.course || "Estudiante aún no matriculado"}</p>
+                                <p><strong>Carnet ID:</strong> ${data.carnet_id}</p>
+                                <p><strong>Fecha de Nacimiento:</strong> ${data.birth_date}</p>
+                                <p><strong>Correo:</strong> ${data.email}</p>
+                                <p><strong>Teléfono:</strong> ${data.phone}</p>
+                                <p><strong>Dirección:</strong> ${data.address}</p>
+                                <p><strong>Género:</strong> ${data.gender}</p>
+                                <div class="files-list">
+                                    <h3>Archivos Subidos:</h3>
+                                    <ul>
+                                        ${data.files.map(file => `<li><a href="${file.path}" target="_blank">${file.name}</a></li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        `;
+                        document.getElementById('student-card').innerHTML = card;
+                    } else {
+                        document.getElementById('student-card').innerHTML = `<p>${data.error}</p>`;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById('student-card').innerHTML = "<p>Error al cargar los datos del estudiante.</p>";
+                });
+        }
+
+        function updateStudentCard() {
+            const studentId = document.getElementById('id').value;
+            if (studentId) {
+                fetchStudentData(studentId);
+            } else {
+                document.getElementById('student-card').innerHTML = "";
+            }
+        }
+
+        // Función para imprimir la tarjeta
+        function printCard() {
+            window.print();
+        }
+
+        // Función para descargar el kárdex como PDF
+        function downloadPDF() {
+            const studentCard = document.getElementById('printable-card');
+            html2canvas(studentCard).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const doc = new jspdf.jsPDF();
+                const imgWidth = 190; // Ancho ajustado al tamaño del PDF
+                const imgHeight = (canvas.height * imgWidth) / canvas.width; // Mantener proporción
+
+                doc.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+                doc.save("kardex_estudiante.pdf");
+            }).catch(error => {
+                console.error("Error al generar PDF:", error);
+            });
+        }
+    </script>
+</body>
+</html>

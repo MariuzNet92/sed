@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Curso</title>
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+        .form-container h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>CREAR CURSO</h1>
+        <form id="form-crear-curso">
+            <label for="nivel">Nivel</label>
+            <select id="nivel" name="nivel" required>
+                <option value="">Seleccione el nivel</option>
+                <option value="Inicial en familia comunitaria">Inicial en familia comunitaria</option>
+                <option value="Primario comunitario vocacional">Primario comunitario vocacional</option>
+                <option value="Secundario comunitario productivo">Secundario comunitario productivo</option>
+            </select>
+
+            <label for="nombre">Nombre del Curso</label>
+            <select id="nombre" name="nombre" required>
+                <option value="">Seleccione primero el nivel</option>
+            </select>
+
+            <label for="grado">Grado</label>
+            <select id="grado" name="grado" required>
+                <option value="">Seleccione el grado</option>
+                <option value="1er Año">1er Año</option>
+                <option value="2do Año">2do Año</option>
+                <option value="3er Año">3er Año</option>
+                <option value="4to Año">4to Año</option>
+                <option value="5to Año">5to Año</option>
+                <option value="6to Año">6to Año</option>
+            </select>
+
+            <label for="paralelo">Paralelo</label>
+            <select id="paralelo" name="paralelo" required>
+                <option value="">Seleccione el paralelo</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+            </select>
+
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion" placeholder="Ingrese una descripción del curso"></textarea>
+
+            <button type="submit">Crear Curso</button>
+        </form>
+    </div>
+
+    <script>
+        const nivel = document.getElementById("nivel");
+        const nombre = document.getElementById("nombre");
+
+        // Cambiar los cursos según el nivel seleccionado
+        nivel.addEventListener("change", function () {
+            const nivelSeleccionado = nivel.value;
+            let opciones = "";
+
+            if (nivelSeleccionado === "Inicial en familia comunitaria") {
+                opciones = `
+                    <option value="1er Año Inicial">1er Año Inicial</option>
+                    <option value="2do Año Inicial">2do Año Inicial</option>
+                `;
+            } else if (nivelSeleccionado === "Primario comunitario vocacional") {
+                opciones = `
+                    <option value="1er Año Primaria">1er Año Primaria</option>
+                    <option value="2do Año Primaria">2do Año Primaria</option>
+                    <option value="3er Año Primaria">3er Año Primaria</option>
+                    <option value="4to Año Primaria">4to Año Primaria</option>
+                    <option value="5to Año Primaria">5to Año Primaria</option>
+                    <option value="6to Año Primaria">6to Año Primaria</option>
+                `;
+            } else if (nivelSeleccionado === "Secundario comunitario productivo") {
+                opciones = `
+                    <option value="1er Año Secundaria">1er Año Secundaria</option>
+                    <option value="2do Año Secundaria">2do Año Secundaria</option>
+                    <option value="3er Año Secundaria">3er Año Secundaria</option>
+                    <option value="4to Año Secundaria">4to Año Secundaria</option>
+                    <option value="5to Año Secundaria">5to Año Secundaria</option>
+                    <option value="6to Año Secundaria">6to Año Secundaria</option>
+                `;
+            } else {
+                opciones = `<option value="">Seleccione primero el nivel</option>`;
+            }
+
+            nombre.innerHTML = opciones;
+        });
+
+        // Enviar el formulario para crear el curso
+        document.getElementById("form-crear-curso").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+
+            fetch("php/crear_curso.php", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert("Curso creado exitosamente.");
+                    event.target.reset();
+                    nombre.innerHTML = `<option value="">Seleccione primero el nivel</option>`;
+                } else {
+                    alert(result.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error al crear curso:", error);
+                alert("Ocurrió un error al crear el curso.");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Docentes y Administrativos</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #fff;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .actions button {
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-save:hover {
+            background-color: #218838;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Docentes y Administrativos</h1>
+
+       <!--
+       añade la funsion de busqueda por favor
+       para filtrar ya sea por; 
+ID	Nombre Completo	Carnet de Identidad	Correo	Teléfono	Cargo	Acciones 
+       --> 
+        <table id="tabla-staff">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Completo</th>
+                    <th>Carnet de Identidad</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Cargo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Datos dinámicos -->
+            </tbody>
+        </table>
+    </div>
+    <script src="js/staff.js"></script>
+</body>
+</html>

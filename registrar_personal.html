@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Personal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+        .form-container h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Registrar Personal</h1>
+        <form id="form-registrar-personal">
+            <label for="nombres">Nombres</label>
+            <input type="text" id="nombres" name="nombres" placeholder="Nombres del personal" required>
+
+            <label for="apellido_pat">Apellido Paterno</label>
+            <input type="text" id="apellido_pat" name="apellido_pat" placeholder="Apellido paterno" required>
+
+            <label for="apellido_mat">Apellido Materno</label>
+            <input type="text" id="apellido_mat" name="apellido_mat" placeholder="Apellido materno" required>
+
+            <label for="carnet_id">Carnet de Identidad</label>
+            <input type="text" id="carnet_id" name="carnet_id" placeholder="Carnet de identidad" required>
+
+            <label for="fecha_nac">Fecha de Nacimiento</label>
+            <input type="date" id="fecha_nac" name="fecha_nac" required>
+
+            <label for="correo">Correo Electrónico</label>
+            <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
+
+            <label for="telefono">Teléfono</label>
+            <input type="text" id="telefono" name="telefono" placeholder="Teléfono">
+
+            <label for="especialidad">Especialidad</label>
+            <input type="text" id="especialidad" name="especialidad" placeholder="Especialidad">
+
+            <label for="cargo">Cargo</label>
+            <select id="cargo" name="cargo" required>
+                <option value="">Seleccione un cargo</option>
+                <option value="Director">Director</option>
+                <option value="Docente">Docente</option>
+                <option value="Secretario">Secretario</option>
+                <option value="Secretaria">Secretaria</option>
+                <option value="Limpieza">Limpieza</option>
+            </select>
+
+            <label for="genero">Género</label>
+            <select id="genero" name="genero" required>
+                <option value="">Seleccione un género</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+            </select>
+
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+
+    <script src="js/registrar_personal.js"></script>
+</body>
+</html>

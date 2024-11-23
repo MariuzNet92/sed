@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Estudiantes</title>
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+  <h1>Gestión de Estudiantes</h1>
+
+  <!-- Área de búsqueda -->
+  <div>
+    <label for="busqueda">Buscar estudiante:</label>
+    <input type="text" id="busqueda" placeholder="Escribe nombres, apellidos, carnet, etc." />
+  </div>
+
+  <table border="1" id="tabla-estudiantes">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombres</th>
+        <th>Apellido Paterno</th>
+        <th>Apellido Materno</th>
+        <th>Carnet ID</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Correo</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Género</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Aquí se cargará dinámicamente el contenido -->
+    </tbody>
+  </table>
+
+  <script src="js/estudiantes.js"></script>
+</body>
+</html>

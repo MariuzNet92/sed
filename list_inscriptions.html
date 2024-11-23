@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Inscripciones</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon" href="img/logoM.png" type="image/png">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/list_inscriptions.css">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <script defer src="js/scripts.js"></script>
+</head>
+<body>
+    <!--ENCABEZADO INICIAL-->
+    <header>
+        <div class="header-container">
+            <a href="dashboard.html">
+                <img src="img/logoM.png" alt="Logo Sistema Educativo Digital" class="logo">
+            </a>
+            <a href="dashboard.html">
+                <h2 class="italic">SED - Sistema Educativo Digital</h2>
+            </a>
+        </div>
+    </header>
+
+    <!--BARRA DE NAVEGACIÓN PRINCIPAL-->
+    <nav>
+        <div class="dropdown">
+            <button class="dropbtn" aria-label="Menú de Registro de Estudiantes">Reg. Estudiantes</button>
+            <div class="dropdown-content">
+                <a href="registro_estudiante.html">Reg. Estudiantes</a>
+                <a href="inscribir_estudiante.html">Insc. Estudiantes</a>
+                <a href="list_inscriptions.html">Lista de Inscritos</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn" aria-label="Menú de Opciones para Estudiantes">Ver Estudiantes</button>
+            <div class="dropdown-content">
+                <a href="list_student.html">Lista Gral. Estudiantes</a>
+                <a href="upload_student.html">Cargar Arch. Estudiantes</a>
+                <a href="student_kardex.html">Ver Kardex</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn" aria-label="Menú de Opciones para Personal U.E.">Personal U.E.</button>
+            <div class="dropdown-content">
+                <a href="registrar_personal.html">Registrar PDA</a>
+                <a href="list_staff.html">Ver lista PDA</a>
+                <a href="subir_archivos_docente.html">Registrar Arch. PDA</a>
+                <a href="docent_kardex.html">Kardex de Personal</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn" aria-label="Menú de Opciones para Cursos">Cursos</button>
+            <div class="dropdown-content">
+                <a href="crear_curso.html">Crear Cursos</a>
+                <a href="list_courses.html">Lista de Cursos</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <h1>Lista de Inscripciones</h1>
+            <div class="filter-container">
+                <label for="filter-curso">Filtrar por Curso:</label>
+                <select id="filter-curso">
+                    <option value="">Todos</option>
+                    <!-- Opciones dinámicas -->
+                </select>
+            </div>
+            <table id="tabla-inscripciones">
+                <thead>
+                    <tr>
+                        <th>RUDE</th>
+                        <th>Estudiante</th>
+                        <th>Curso</th>
+                        <th>Paralelo</th>
+                        <th>Fecha de Inscripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Datos dinámicos -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <!--PIE DE PAGINA GENERAL-->
+    <footer>
+        <p>&copy; 2024 SED - Sistema Educativo Digital</p>
+    </footer>
+
+    <script src="js/inscripciones2.js"></script>
+</body>
+</html>

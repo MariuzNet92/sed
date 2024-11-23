@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivos Docentes</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Función para buscar el nombre del docente por ID
+        function fetchDocentName() {
+            const docentId = document.querySelector('input[name="id"]').value;
+
+            if (docentId) {
+                fetch(`php/get_docent_name.php?id=${docentId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('docent_name').textContent = `Nombre: ${data.name}`;
+                        } else {
+                            document.getElementById('docent_name').textContent = "Personal no encontrado.";
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error al obtener el nombre del personal:", error);
+                        document.getElementById('docent_name').textContent = "Error al buscar.";
+                    });
+            } else {
+                document.getElementById('docent_name').textContent = "";
+            }
+        }
+
+        // Función para manejar la subida de archivos
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: form.method,
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message); // Mostrar mensaje de éxito
+                    } else {
+                        alert("Error: " + data.message); // Mostrar mensaje de error
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al subir los archivos:", error);
+                    alert("Error al subir los archivos. Consulte la consola para más detalles.");
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Subir Archivos para Docente</h1>
+    <form action="php/upload_docent.php" method="post" enctype="multipart/form-data" onsubmit="handleFormSubmit(event)">
+        <label for="id">ID del Personal:</label>
+        <input type="number" name="id" required oninput="fetchDocentName()"><br><br>
+
+        <!-- Cuadro que muestra el nombre del docente -->
+        <p id="docent_name" style="font-weight: bold; color: blue;"></p>
+
+        <label for="foto">Foto (JPG):</label>
+        <input type="file" name="foto" accept=".jpg"><br><br>
+
+        <label for="carnet_id">Carnet de Identidad (PDF):</label>
+        <input type="file" name="carnet_id" accept=".pdf"><br><br>
+
+        <label for="certif_nac">Certificado de Nacimiento (PDF):</label>
+        <input type="file" name="certif_nac" accept=".pdf"><br><br>
+
+        <!-- Documentos adicionales -->
+        <label for="doc_1">Documento 1 (PDF):</label>
+        <input type="file" name="doc_1" accept=".pdf"><br><br>
+
+        <label for="doc_2">Documento 2 (PDF):</label>
+        <input type="file" name="doc_2" accept=".pdf"><br><br>        
+        
+        <label for="doc_3">Documento 3 (PDF):</label>
+        <input type="file" name="doc_3" accept=".pdf"><br><br>
+
+        <label for="doc_4">Documento 4 (PDF):</label>
+        <input type="file" name="doc_4" accept=".pdf"><br><br>
+
+        <label for="doc_5">Documento 5 (PDF):</label>
+        <input type="file" name="doc_5" accept=".pdf"><br><br>
+
+        <label for="doc_6">Documento 6 (PDF):</label>
+        <input type="file" name="doc_6" accept=".pdf"><br><br>
+
+        <label for="doc_7">Documento 7 (PDF):</label>
+        <input type="file" name="doc_7" accept=".pdf"><br><br>
+
+        <label for="doc_8">Documento 8 (PDF):</label>
+        <input type="file" name="doc_8" accept=".pdf"><br><br>
+
+        <label for="doc_9">Documento 9 (PDF):</label>
+        <input type="file" name="doc_9" accept=".pdf"><br><br>
+
+        <label for="doc_10">Documento 10 (PDF):</label>
+        <input type="file" name="doc_10" accept=".pdf"><br><br>
+
+        <button type="submit">Subir Archivos</button>
+    </form>
+</body>
+</html>
